@@ -18,7 +18,7 @@ void init(HMODULE hModule)
 
 	while (!GetAsyncKeyState(VK_DELETE) & 1)
 	{
-		if (pUWorld)
+		if (pUWorld && pUWorld->OwningGameInstance)
 		{
 			ULocalPlayer *localPlayer = pUWorld->OwningGameInstance->LocalPlayers[0];
 
