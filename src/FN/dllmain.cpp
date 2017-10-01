@@ -14,34 +14,49 @@ void init(HMODULE hModule)
 	DWORD64 UWorldOffset = *reinterpret_cast<DWORD*>(instructionOffset) + instructionOffset + sizeof(DWORD);
 	
 	pUWorld = *reinterpret_cast<UWorld**>(UWorldOffset);
-	
 
 	while (!GetAsyncKeyState(VK_DELETE) & 1)
 	{
-		if (pUWorld && pUWorld->OwningGameInstance)
-		{
-			ULocalPlayer *localPlayer = pUWorld->OwningGameInstance->LocalPlayers[0];
+		system("cls");
+		if (!pUWorld || !pUWorld->OwningGameInstance || !pUWorld->PersistentLevel)
+			continue;
+		
+		ULocalPlayer *localPlayer = pUWorld->OwningGameInstance->LocalPlayers[0];
+		if (!localPlayer || !localPlayer->PlayerController)
+			continue;
 
-			if (localPlayer)
-			{
-				AFortPawn *localPlayerPawn = static_cast<AFortPawn*>(localPlayer->PlayerController->Pawn);
-				if (localPlayerPawn)
-				{
-					AFortPlayerState *localPlayerState = static_cast<AFortPlayerState*>(localPlayerPawn->PlayerState);
-					if (localPlayerState)
-					{
-						wprintf(L"My Name: %s", localPlayerState->PlayerName.c_str());
-						break;
-					}
-				}
-			}
+		AFortPawn *localPlayerPawn = static_cast<AFortPawn*>(localPlayer->PlayerController->Pawn);
+		if (!localPlayerPawn)
+			continue;
+
+		AFortPlayerStateAthena *localPlayerState = static_cast<AFortPlayerStateAthena*>(localPlayerPawn->PlayerState);
+		if (!localPlayerState)
+			continue;
+
+		for (int i = 0; i < pUWorld->PersistentLevel->AActors.Num(); i++)
+		{
+			AFortPawn *pPlayerPawn = static_cast<AFortPawn*>(pUWorld->PersistentLevel->AActors[i]);
+			if (!pPlayerPawn || pPlayerPawn == localPlayerPawn)
+				continue;
+
+			if (pPlayerPawn->GetName().find("PlayerPawn_Athena_C") == std::string::npos)
+				continue;
+
+			AFortPlayerStateAthena *pPlayerState = static_cast<AFortPlayerStateAthena*>(pPlayerPawn->PlayerState);
+			if (!pPlayerState)
+				continue;
+
+			if (!pPlayerState->PlayerName.IsValid())
+				continue;
+
+			wprintf(L"Player: %d has name: %s", i, pPlayerState->PlayerName.c_str());
 		}
 
 		Sleep(10);
 	}
 
 	FreeConsole();
-		FreeLibraryAndExitThread(hModule, 0);
+	FreeLibraryAndExitThread(hModule, 0);
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
