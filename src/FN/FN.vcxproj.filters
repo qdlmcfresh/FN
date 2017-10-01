@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\SDK">
+      <UniqueIdentifier>{207a71c9-9f40-4bcd-83af-9a17ce08c9dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Util">
+      <UniqueIdentifier>{2884d9b6-9342-49cb-8156-e4d81027ef20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Util">
+      <UniqueIdentifier>{cef8f39a-f0ab-4bf5-ac68-6efbd6685fb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -20,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MemTools.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -33,10 +45,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\3rdParty\FN_SDK\SDK\FN_Basic.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDK</Filter>
     </ClCompile>
     <ClCompile Include="..\..\3rdParty\FN_SDK\SDK\FN_CoreUObject_functions.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="MemTools.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdParty\FN_SDK\SDK\FN_Engine_functions.cpp">
+      <Filter>Source Files\SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rdParty\FN_SDK\SDK\FN_FortniteGame_functions.cpp">
+      <Filter>Source Files\SDK</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
