@@ -34,8 +34,10 @@ void init(HMODULE hModule)
 			continue;
 
 		AFortPawn *localPlayerPawn = static_cast<AFortPawn*>(localPlayer->PlayerController->Pawn);
-		if (!localPlayerPawn)
+		if (!localPlayerPawn || !localPlayerPawn->RootComponent)
 			continue;
+
+		FVector localPlayerLocation = localPlayerPawn->RootComponent->Location;
 
 		AFortPlayerStateAthena *localPlayerState = static_cast<AFortPlayerStateAthena*>(localPlayerPawn->PlayerState);
 		if (!localPlayerState)
@@ -44,7 +46,7 @@ void init(HMODULE hModule)
 		for (int i = 0; i < pUWorld->PersistentLevel->AActors.Num(); i++)
 		{
 			AFortPawn *pPlayerPawn = static_cast<AFortPawn*>(pUWorld->PersistentLevel->AActors[i]);
-			if (!pPlayerPawn || pPlayerPawn == localPlayerPawn)
+			if (!pPlayerPawn || pPlayerPawn == localPlayerPawn || !pPlayerPawn->RootComponent)
 				continue;
 
 			if (pPlayerPawn->GetName().find("PlayerPawn_Athena_C") == std::string::npos)
@@ -57,7 +59,11 @@ void init(HMODULE hModule)
 			if (!pPlayerState->PlayerName.IsValid())
 				continue;
 
-			wprintf(L"Player: %d has name: %s\n", i, pPlayerState->PlayerName.c_str());
+			FVector playerLocation = pPlayerPawn->RootComponent->Location;
+
+			double distance = sqrt(pow(localPlayerLocation.X - playerLocation.X, 2) + pow(localPlayerLocation.Y - playerLocation.Y, 2) + pow(localPlayerLocation.Z - playerLocation.Z, 2)) * 0.0254f;
+
+			wprintf(L"Player: %s, Dist: %.2f\n", pPlayerState->PlayerName.c_str(), distance);
 		}
 
 		Sleep(10);
