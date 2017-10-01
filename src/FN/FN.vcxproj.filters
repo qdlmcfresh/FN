@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Util">
       <UniqueIdentifier>{cef8f39a-f0ab-4bf5-ac68-6efbd6685fb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{3434e102-ef63-43d6-bf20-55f329c66594}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -59,5 +62,10 @@
     <ClCompile Include="..\..\3rdParty\FN_SDK\SDK\FN_FortniteGame_functions.cpp">
       <Filter>Source Files\SDK</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Signatures.txt">
+      <Filter>Misc</Filter>
+    </Text>
   </ItemGroup>
 </Project>

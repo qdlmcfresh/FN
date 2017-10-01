@@ -1,0 +1,7 @@
+UWorld: 0x65D9770 - sig: 48 8B 15 ? ? ? ? 45 33 C0 E8 ? ? ? ?
+GetGNames: 0x64E5448 - sig: 48 8B 05 ? ? ? ? 48 85 C0 75 50 B9 ? ? ? ? 48 89 5C 24 
+GetGObjects: 0x64EDFF0 - sig: 48 8D 0D ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? 48 8B D6
+ 
+World2Screen: 0x20C5AE0 - sig: 48 89 5C 24 ? 48 89 74 24 ? 57 48 81 EC ? ? ? ? 41 0F B6 F9 
+GetBoneMatrix: 0x201E160 - sig: 40 53 55 57 41 56 48 81 EC ? ? ? ? 45 33 F6 
+GetObjectName: 0x2135EC0 - sig: 40 53 48 83 EC 20 48 8B D9 48 85 D2 75 30
