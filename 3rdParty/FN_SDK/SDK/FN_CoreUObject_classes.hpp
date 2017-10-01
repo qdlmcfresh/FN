@@ -27,6 +27,12 @@ public:
 
 	static inline TUObjectArray& GetGlobalObjects()
 	{
+		if (!GObjects)
+		{
+			const auto addressObj = MemTools::Pattern("\x48\x8D\x0D\x00\x00\x00\x00\xE8\x00\x00\x00\x00\xE8\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x48\x8B\xD6", "xxx????x????x????x????xxx");
+			const auto offsetObj = *reinterpret_cast<uint32_t*>(addressObj + 3);
+			GObjects = reinterpret_cast<FUObjectArray*>(addressObj + 7 + offsetObj);
+		}
 		return GObjects->ObjObjects;
 	}
 

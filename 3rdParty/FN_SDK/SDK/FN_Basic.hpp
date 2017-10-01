@@ -260,6 +260,12 @@ struct FName
 	static TNameEntryArray *GNames;
 	static inline TNameEntryArray& GetGlobalNames()
 	{
+		if (!GNames)
+		{
+			const auto addressNames = MemTools::Pattern("\x48\x8B\x05\x00\x00\x00\x00\x48\x85\xC0\x75\x50\xB9\x00\x00\x00\x00\x48\x89\x5C\x24", "xxx????xxxxxx????xxxx");
+			const auto offsetNames = *reinterpret_cast<uint32_t*>(addressNames + 3);
+			GNames = *reinterpret_cast<TNameEntryArray**>(addressNames + 7 + offsetNames);
+		}
 		return *GNames;
 	};
 
