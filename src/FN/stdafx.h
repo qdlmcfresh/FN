@@ -13,7 +13,9 @@
 #include <Psapi.h>
 #include <algorithm>
 #include <vector>
-
+#include <d3d11.h>
+#include <FW1FontWrapper.h>
+#include <BeaEngine.h>
 
 
 // TODO: reference additional headers your program requires here
