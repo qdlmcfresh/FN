@@ -13,9 +13,17 @@
 #include <Psapi.h>
 #include <algorithm>
 #include <vector>
+
+#include <Windows.h>
 #include <d3d11.h>
-#include <FW1FontWrapper.h>
+
+#pragma comment(lib, "d3d11.lib")
+
+#include "FW1FontWrapper.h"
 #include <BeaEngine.h>
+
+#pragma comment(lib, "BeaEngine64.lib")
+#pragma comment(lib,"FW1FontWrapper.lib")
 
 
 // TODO: reference additional headers your program requires here

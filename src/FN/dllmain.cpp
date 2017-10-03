@@ -36,21 +36,17 @@ HRESULT __stdcall hookD3D11Present(IDXGISwapChain* pSwapChain, UINT SyncInterval
 
 		firstTime = false;
 	}
-
 	ID3D11Texture2D *pBackBuffer;
-	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&pBackBuffer);
+	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&pBackBuffer);//This = Swapchain
 	ID3D11RenderTargetView *pRTV;
-
+	pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRTV);
 	pContext->OMSetRenderTargets(1, &pRTV, NULL);
-	// draw here
 
 	pFontWrapper->DrawString(pContext, L"D3D11 Hook by evolution536", 10.0f, 16.0f, 16.0f, 0xffff1612, FW1_RESTORESTATE);
 
 	D3D11_TEXTURE2D_DESC backBufferDesc;
 	pBackBuffer->GetDesc(&backBufferDesc);
-
 	pBackBuffer->Release();
-
 	return phookD3D11Present(pSwapChain, SyncInterval, Flags);
 }
 
@@ -205,7 +201,7 @@ const void* DetourFunc(BYTE* const src, const BYTE* dest, const DWORD length)
 
 DWORD __stdcall InitializeHook(LPVOID)
 {
-	HWND hWnd = FindWindowA(NULL, "Fortnite ");
+	HWND hWnd = GetForegroundWindow();
 	IDXGISwapChain* pSwapChain;
 
 	D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
@@ -374,8 +370,6 @@ BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpRese
 		CreateThread(NULL, 0, InitializeHook, NULL, 0, NULL);
 		CreateThread(0, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(init), hModule, 0, 0);
 		break;
-	case DLL_THREAD_ATTACH:
-	case DLL_THREAD_DETACH:
 	case DLL_PROCESS_DETACH:
 		if (pFontWrapper)
 		{
